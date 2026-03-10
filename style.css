@@ -550,7 +550,7 @@ body {
 }
 .problem-scenario strong { color: var(--text-primary); }
 
-/* === AI INSIGHTS === */
+/* === DEEP ANALYSIS === */
 .ai-section {
   background: var(--bg-glass); backdrop-filter: blur(12px);
   border: 1px solid var(--accent-border); border-radius: var(--radius);
