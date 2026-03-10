@@ -442,8 +442,15 @@ body {
 }
 .analysis-card h3 { font-size: 1.05rem; margin-bottom: 6px; }
 .analysis-url {
-  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 18px;
+  font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px;
   word-break: break-all;
+}
+.analysis-meta {
+  font-size: 0.72rem; color: var(--text-muted); margin-bottom: 12px;
+}
+.analysis-rating {
+  text-align: center; font-size: 1.4rem; font-weight: 800;
+  margin-bottom: 18px; letter-spacing: 0.5px;
 }
 
 .analysis-grid {
@@ -453,10 +460,24 @@ body {
   padding: 14px; background: rgba(0, 0, 0, 0.3); border-radius: 12px;
 }
 .analysis-item .al { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.analysis-item .av { font-weight: 600; font-size: 0.9rem; }
+.analysis-item .av { font-weight: 600; font-size: 0.85rem; }
 .analysis-item .av.good { color: var(--score-high); }
 .analysis-item .av.warn { color: var(--score-mid); }
 .analysis-item .av.bad { color: var(--score-low); }
+
+.analysis-findings {
+  margin-top: 18px; padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+.findings-title {
+  font-size: 0.8rem; font-weight: 700; color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.finding-item {
+  display: flex; gap: 8px; padding: 5px 0;
+  font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;
+}
+.finding-arrow { color: var(--accent-orange); flex-shrink: 0; }
 
 /* === NEXT STEPS === */
 .steps-section {
