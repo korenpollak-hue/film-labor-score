@@ -705,7 +705,10 @@ async function submitQuiz() {
     if (APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('%%')) {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
         body: JSON.stringify(payload)
       });
       backendResult = await response.json();
