@@ -871,7 +871,7 @@ function showResults(total, scores, level, result) {
       </div>`;
   }
 
-  // AI Insights (from Cloudflare Workers AI)
+  // Deep Analysis Insights
   let aiInsightsHTML = '';
   if (wa?.aiInsights && wa.aiInsights.length > 0) {
     const typeIcons = { chance: '\u{1F4A1}', warnung: '\u{26A0}\u{FE0F}', stärke: '\u{2705}', staerke: '\u{2705}', tipp: '\u{1F4CC}' };
@@ -880,9 +880,9 @@ function showResults(total, scores, level, result) {
 
     aiInsightsHTML = `
       <div class="ai-section">
-        <div class="ai-badge">\u{1F916} KI-Analyse</div>
-        <h3>Personalisierte Insights für ${answers.company || 'euch'}</h3>
-        <p class="ai-intro">Basierend auf der Analyse eurer Website und eurer Antworten.</p>
+        <div class="ai-badge">\u{1F50D} Tiefenanalyse</div>
+        <h3>Was wir über ${answers.company || 'euch'} herausgefunden haben</h3>
+        <p class="ai-intro">Basierend auf dem Scan eurer Website und euren Angaben — hier sind Dinge, die ihr vielleicht selbst noch nicht wisst.</p>
         <div class="ai-grid">
           ${wa.aiInsights.map(ins => {
             const icon = typeIcons[ins.type] || '\u{1F4A1}';
