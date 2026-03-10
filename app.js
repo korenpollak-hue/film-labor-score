@@ -1,7 +1,10 @@
 // Film-labor Video-Marketing Score v3 — FIFA Radar Chart + Expert Insights
 // =========================================================================
 
-const BACKEND_URL = 'https://imperfectible-unadversely-glinda.ngrok-free.dev';
+// Primary: Cloudflare Worker (24/7, no computer needed)
+// Fallback: ngrok (when local server is running)
+const BACKEND_URL = 'https://film-labor-score.film-labor.workers.dev';
+const FALLBACK_URL = 'https://imperfectible-unadversely-glinda.ngrok-free.dev';
 
 const CONFIG = {
   calendarLink: 'https://calendly.com/koren-film-labor/30min',
@@ -310,20 +313,22 @@ function renderContact(q) {
         <label>Geschäftliche E-Mail <span class="req">*</span></label>
         <input type="email" id="email" placeholder="max@unternehmen.de" autocomplete="email">
       </div>
+    </div>
+    <div class="form-grid two-col" style="margin-top:16px">
       <div class="field">
         <label>Unternehmen <span class="req">*</span></label>
         <input type="text" id="company" placeholder="Mustermann GmbH" autocomplete="organization">
       </div>
       <div class="field">
-        <label>Website</label>
-        <input type="url" id="website" placeholder="https://www.unternehmen.de" autocomplete="url">
+        <label>Website <span class="opt">(für Analyse)</span></label>
+        <input type="url" id="website" placeholder="unternehmen.de" autocomplete="url">
       </div>
     </div>
     <div class="form-grid two-col" style="margin-top:16px">
       <div class="field">
-        <label>Branche <span class="req">*</span></label>
+        <label>Branche</label>
         <select id="branche">
-          <option value="">Bitte wählen</option>
+          <option value="">Optional</option>
           <option>IT & Software</option>
           <option>Maschinenbau & Industrie</option>
           <option>Pharma & Chemie</option>
@@ -341,9 +346,9 @@ function renderContact(q) {
         </select>
       </div>
       <div class="field">
-        <label>Mitarbeiter <span class="req">*</span></label>
+        <label>Mitarbeiter</label>
         <select id="companySize">
-          <option value="">Bitte wählen</option>
+          <option value="">Optional</option>
           <option>1–10</option>
           <option>11–50</option>
           <option>51–200</option>
@@ -466,7 +471,7 @@ function submitContact() {
   const firstName = f('firstName'), lastName = f('lastName'), email = f('email');
   const company = f('company'), branche = f('branche'), size = f('companySize');
 
-  if (!firstName || !lastName || !email || !company || !branche || !size) {
+  if (!firstName || !lastName || !email || !company) {
     errEl.textContent = 'Bitte fülle alle Pflichtfelder aus.';
     errEl.classList.add('show');
     return;
@@ -689,14 +694,20 @@ async function submitQuiz() {
 
   const payload = { ...answers, score: total, scores, level: level.label, timestamp: new Date().toISOString() };
   let result = null;
-  try {
-    const resp = await fetch(BACKEND_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
-      body: JSON.stringify(payload),
-    });
-    result = await resp.json();
-  } catch (e) { console.log('Backend:', e); }
+
+  // Try primary (Cloudflare Worker 24/7), fallback to ngrok
+  for (const url of [BACKEND_URL, FALLBACK_URL]) {
+    try {
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(12000),
+      });
+      result = await resp.json();
+      if (result?.success) break;
+    } catch (e) { console.log(`Backend ${url}:`, e); }
+  }
 
   await delay(300);
   const last = document.getElementById(steps[steps.length - 1]);
