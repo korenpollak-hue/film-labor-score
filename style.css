@@ -202,6 +202,7 @@ body {
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0.02em; }
 .field label .req { color: var(--accent-orange); }
+.field label .opt { color: var(--text-muted); font-weight: 400; font-size: 0.72rem; }
 .field input, .field select {
   padding: 14px 16px; background: var(--bg-glass); backdrop-filter: blur(8px);
   border: 1px solid var(--border); border-radius: 12px;
