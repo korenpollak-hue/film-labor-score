@@ -1,7 +1,7 @@
 // Film-labor Video-Marketing Score - Lead Magnet App
 // ===================================================
 
-const APPS_SCRIPT_URL = '%%APPS_SCRIPT_URL%%'; // Will be replaced after deployment
+const APPS_SCRIPT_URL = 'https://imperfectible-unadversely-glinda.ngrok-free.dev';
 
 const CONFIG = {
   totalSteps: 5,
