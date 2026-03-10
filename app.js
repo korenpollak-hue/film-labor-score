@@ -788,22 +788,37 @@ function showResults(total, scores, level, result) {
       <div class="stat-text">${s}</div>
     </div>`).join('');
 
-  // Website analysis
+  // Website analysis (enhanced)
   let websiteHTML = '';
   if (wa) {
+    const ratingColor = (wa.overallRating === 'excellent' || wa.overallRating === 'good') ? '#22c55e' : wa.overallRating === 'ok' ? '#f59e0b' : '#ef4444';
+    const socialDetail = wa.socialPlatforms?.length ? ` (${wa.socialPlatforms.join(', ')})` : '';
+    const careerDetail = wa.hasCareerSubpage ? 'Eigene Unterseite' : wa.hasCareerPage ? 'Hinweise gefunden' : 'Fehlt';
+
     const items = [
-      { label: 'Video auf Website', value: wa.hasVideo ? 'Vorhanden' : 'Fehlt', status: wa.hasVideo ? 'good' : 'bad' },
-      { label: 'Social Media Links', value: `${wa.socialLinks} gefunden`, status: wa.socialLinks > 2 ? 'good' : wa.socialLinks > 0 ? 'warn' : 'bad' },
-      { label: 'Karriere-Seite', value: wa.hasCareerPage ? 'Vorhanden' : 'Fehlt', status: wa.hasCareerPage ? 'good' : 'warn' },
-      { label: 'SSL-Verschlüsselung', value: wa.hasSSL ? 'Aktiv' : 'Fehlt', status: wa.hasSSL ? 'good' : 'bad' },
-      { label: 'Responsive Design', value: wa.isResponsive ? 'Ja' : 'Nein', status: wa.isResponsive ? 'good' : 'bad' },
-      { label: 'Gesamtbewertung', value: wa.overallLabel, status: wa.overallRating === 'good' ? 'good' : wa.overallRating === 'ok' ? 'warn' : 'bad' },
+      { label: 'Video-Content', value: wa.hasVideo ? `${wa.videoCount || 1} Video(s) gefunden` : 'Nicht gefunden', status: wa.hasVideo ? 'good' : 'bad' },
+      { label: 'Social Media', value: `${wa.socialLinks} Plattformen${socialDetail}`, status: wa.socialLinks > 2 ? 'good' : wa.socialLinks > 0 ? 'warn' : 'bad' },
+      { label: 'Karriere-Seite', value: careerDetail, status: wa.hasCareerPage ? 'good' : 'warn' },
+      { label: 'SEO Basics', value: wa.hasMetaDescription ? 'Meta-Description vorhanden' : 'Meta-Description fehlt', status: wa.hasMetaDescription ? 'good' : 'bad' },
+      { label: 'Social Sharing', value: wa.hasOgTags ? 'Open Graph Tags vorhanden' : 'OG Tags fehlen', status: wa.hasOgTags ? 'good' : 'bad' },
+      { label: 'Strukturierte Daten', value: wa.hasStructuredData ? 'Schema.org vorhanden' : 'Fehlt', status: wa.hasStructuredData ? 'good' : 'warn' },
+      { label: 'Blog/News', value: wa.hasBlog ? 'Vorhanden' : 'Nicht gefunden', status: wa.hasBlog ? 'good' : 'warn' },
+      { label: 'SSL/HTTPS', value: wa.hasSSL ? 'Aktiv' : 'Fehlt', status: wa.hasSSL ? 'good' : 'bad' },
+      { label: 'Responsive', value: wa.isResponsive ? 'Ja' : 'Nein', status: wa.isResponsive ? 'good' : 'bad' },
     ];
+
+    const findingsHTML = (wa.findings || []).map(f => `
+      <div class="finding-item">
+        <span class="finding-arrow">&#x2192;</span>
+        <span>${f}</span>
+      </div>`).join('');
 
     websiteHTML = `
       <div class="analysis-card">
         <h3>&#x1F310; Website-Analyse</h3>
         <div class="analysis-url">${answers.website}</div>
+        <div class="analysis-meta">${wa.pagesScanned || 1} Seiten gescannt &middot; CMS: ${wa.cms || 'Unbekannt'} &middot; Score: <span style="color:${ratingColor};font-weight:700">${wa.score}/${wa.maxScore || 16}</span></div>
+        <div class="analysis-rating" style="color:${ratingColor}">${wa.overallLabel}</div>
         <div class="analysis-grid">
           ${items.map(i => `
             <div class="analysis-item">
@@ -811,6 +826,7 @@ function showResults(total, scores, level, result) {
               <div class="av ${i.status}">${i.value}</div>
             </div>`).join('')}
         </div>
+        ${findingsHTML ? `<div class="analysis-findings"><div class="findings-title">Empfehlungen</div>${findingsHTML}</div>` : ''}
       </div>`;
   }
 
