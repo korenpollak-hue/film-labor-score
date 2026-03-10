@@ -950,6 +950,10 @@ function showResults(total, scores, level, result) {
       ${benchmarkHTML}
     </div>
 
+    ${websiteHTML}
+
+    ${aiInsightsHTML}
+
     <div class="industry-section">
       <h3>Was das für ${answers.company || 'euch'} bedeutet</h3>
       <p class="industry-intro">Basierend auf eurem Profil: Diese Herausforderungen lösen sich mit Video.</p>
@@ -960,10 +964,6 @@ function showResults(total, scores, level, result) {
       <h3>Zahlen &amp; Fakten</h3>
       ${statsHTML}
     </div>
-
-    ${websiteHTML}
-
-    ${aiInsightsHTML}
 
     <div class="steps-section">
       <h3>Deine nächsten Schritte</h3>
