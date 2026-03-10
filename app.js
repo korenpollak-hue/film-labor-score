@@ -656,8 +656,8 @@ function getIndustryInsights(scores, total) {
 
   if (purposes.includes('Recruiting & Employer Branding') || scores.content < 12) {
     problems.push({
-      problem: 'Fachkraftemangel & schwache Arbeitgebermarke',
-      stat: '84% der Bewerber sagen, ein Unternehmensvideo hat sie zur Bewerbung uberzeugt (Quelle: CareerBuilder)',
+      problem: 'Fachkräftemangel & schwache Arbeitgebermarke',
+      stat: '84% der Bewerber sagen, ein Unternehmensvideo hat sie zur Bewerbung überzeugt (Quelle: CareerBuilder)',
       solution: 'Employer-Branding-Videos zeigen echte Mitarbeiter, die Kultur und den Arbeitsalltag. Das schafft Vertrauen und zieht qualifizierte Bewerber an.',
       scenario: 'Ein 90-Sekunden "Day in the Life"-Video eurer besten Mitarbeiter auf LinkedIn generiert 3-5x mehr qualifizierte Bewerbungen als Stellenanzeigen.',
     });
@@ -666,36 +666,36 @@ function getIndustryInsights(scores, total) {
   if (challenges.includes('ROI unklar') || scores.strategy < 12) {
     problems.push({
       problem: 'Marketingbudget ohne messbare Ergebnisse',
-      stat: '87% der Video-Marketer berichten von positivem ROI. Video-Leads konvertieren 4x haufiger (Quelle: Wyzowl 2025)',
-      solution: 'Video-Marketing ist messbar: Views, Watch-Time, Click-Through-Rate, Conversion. Jeder Euro lasst sich nachverfolgen.',
-      scenario: 'Ein Erklar-Video auf eurer Landing Page kann die Conversion-Rate um 80% steigern. Bei 1.000 Besuchern/Monat bedeutet das Dutzende zusatzliche Leads.',
+      stat: '87% der Video-Marketer berichten von positivem ROI. Video-Leads konvertieren 4x häufiger (Quelle: Wyzowl 2025)',
+      solution: 'Video-Marketing ist messbar: Views, Watch-Time, Click-Through-Rate, Conversion. Jeder Euro lässt sich nachverfolgen.',
+      scenario: 'Ein Erklärvideo auf eurer Landing Page kann die Conversion-Rate um 80% steigern. Bei 1.000 Besuchern/Monat bedeutet das Dutzende zusätzliche Leads.',
     });
   }
 
   if (scores.distribution < 10 || channels.includes('Nirgendwo')) {
     problems.push({
       problem: 'Geringe Online-Sichtbarkeit trotz gutem Produkt',
-      stat: 'Video-Content wird 12x haufiger geteilt als Text und Bilder zusammen. LinkedIn-Videos erhalten 5x mehr Engagement (Quelle: HubSpot)',
-      solution: 'Ein einziger gut produzierter Video-Content kann auf 5+ Kanalen ausgespielt werden: Website, LinkedIn, YouTube, Instagram, E-Mail.',
+      stat: 'Video-Content wird 12x häufiger geteilt als Text und Bilder zusammen. LinkedIn-Videos erhalten 5x mehr Engagement (Quelle: HubSpot)',
+      solution: 'Ein einziger gut produzierter Video-Content kann auf 5+ Kanälen ausgespielt werden: Website, LinkedIn, YouTube, Instagram, E-Mail.',
       scenario: 'Ein monatliches 60-Sekunden Experten-Video auf LinkedIn baut innerhalb von 6 Monaten eine Reichweite von 10.000+ Impressionen pro Post auf.',
     });
   }
 
   if (purposes.includes('Produktvideos') || purposes.includes('Imagefilm')) {
     problems.push({
-      problem: 'Komplexe Produkte sind schwer zu erklaren',
-      stat: '96% der Menschen haben sich ein Erklarvideo angesehen, um mehr uber ein Produkt zu erfahren (Quelle: Wyzowl)',
-      solution: 'Produktvideos reduzieren die Erklarzeit um 80% und beantworten Kundenfragen, bevor sie gestellt werden.',
-      scenario: 'Ein 2-Minuten Produktvideo ersetzt 10 Seiten Broschure und wird von 73% der B2B-Einkaufer vor der Kaufentscheidung angeschaut.',
+      problem: 'Komplexe Produkte sind schwer zu erklären',
+      stat: '96% der Menschen haben sich ein Erklärvideo angesehen, um mehr über ein Produkt zu erfahren (Quelle: Wyzowl)',
+      solution: 'Produktvideos reduzieren die Erklärzeit um 80% und beantworten Kundenfragen, bevor sie gestellt werden.',
+      scenario: 'Ein 2-Minuten Produktvideo ersetzt 10 Seiten Broschüre und wird von 73% der B2B-Einkäufer vor der Kaufentscheidung angeschaut.',
     });
   }
 
   if (challenges.includes('Zu teuer') || challenges.includes('Keine Zeit')) {
     problems.push({
-      problem: 'Video-Produktion wirkt zu aufwandig und teuer',
-      stat: 'Ein gebundelter Drehtag fur 3-5 Videos spart 40% gegenuber Einzelbuchungen. Ein professionelles Video halt 2-3 Jahre.',
-      solution: 'Batch-Produktion macht Video bezahlbar: An einem Tag dreht man Content fur Monate. Der ROI ubersteigt die Investition bereits beim ersten Neukunden.',
-      scenario: 'Investition: Ein Drehtag fur 3 Videos. Ergebnis: 3-5 Jahre nutzbarer Content, messbar mehr Anfragen, starkere Arbeitgebermarke.',
+      problem: 'Video-Produktion wirkt zu aufwändig und teuer',
+      stat: 'Ein gebündelter Drehtag für 3-5 Videos spart 40% gegenüber Einzelbuchungen. Ein professionelles Video hält 2-3 Jahre.',
+      solution: 'Batch-Produktion macht Video bezahlbar: An einem Tag dreht man Content für Monate. Der ROI übersteigt die Investition bereits beim ersten Neukunden.',
+      scenario: 'Investition: Ein Drehtag für 3 Videos. Ergebnis: 3-5 Jahre nutzbarer Content, messbar mehr Anfragen, stärkere Arbeitgebermarke.',
     });
   }
 
@@ -704,7 +704,7 @@ function getIndustryInsights(scores, total) {
     problem: 'Wettbewerber investieren bereits in Video',
     stat: '91% der Unternehmen nutzen Video als Marketing-Tool — Tendenz steigend. 68% der Nicht-Nutzer planen den Einstieg (Quelle: Wyzowl 2025)',
     solution: 'Wer jetzt nicht in Video investiert, verliert Marktanteile an Wettbewerber, die es bereits tun.',
-    scenario: 'Unternehmen mit Video-Strategie generieren 66% mehr qualifizierte Leads pro Jahr und haben 54% hohere Brand Awareness.',
+    scenario: 'Unternehmen mit Video-Strategie generieren 66% mehr qualifizierte Leads pro Jahr und haben 54% höhere Brand Awareness.',
   });
 
   return problems.slice(0, 3);
@@ -836,15 +836,15 @@ function showResults(total, scores, level, result) {
     const careerDetail = wa.hasCareerSubpage ? 'Eigene Unterseite' : wa.hasCareerPage ? 'Hinweise gefunden' : 'Fehlt';
 
     const items = [
-      { label: 'Video-Content', value: wa.hasVideo ? `${wa.videoCount || 1} Video(s) gefunden` : 'Nicht gefunden', status: wa.hasVideo ? 'good' : 'bad' },
-      { label: 'Social Media', value: `${wa.socialLinks} Plattformen${socialDetail}`, status: wa.socialLinks > 2 ? 'good' : wa.socialLinks > 0 ? 'warn' : 'bad' },
-      { label: 'Karriere-Seite', value: careerDetail, status: wa.hasCareerPage ? 'good' : 'warn' },
-      { label: 'SEO Basics', value: wa.hasMetaDescription ? 'Meta-Description vorhanden' : 'Meta-Description fehlt', status: wa.hasMetaDescription ? 'good' : 'bad' },
-      { label: 'Social Sharing', value: wa.hasOgTags ? 'Open Graph Tags vorhanden' : 'OG Tags fehlen', status: wa.hasOgTags ? 'good' : 'bad' },
-      { label: 'Strukturierte Daten', value: wa.hasStructuredData ? 'Schema.org vorhanden' : 'Fehlt', status: wa.hasStructuredData ? 'good' : 'warn' },
-      { label: 'Blog/News', value: wa.hasBlog ? 'Vorhanden' : 'Nicht gefunden', status: wa.hasBlog ? 'good' : 'warn' },
-      { label: 'SSL/HTTPS', value: wa.hasSSL ? 'Aktiv' : 'Fehlt', status: wa.hasSSL ? 'good' : 'bad' },
-      { label: 'Responsive', value: wa.isResponsive ? 'Ja' : 'Nein', status: wa.isResponsive ? 'good' : 'bad' },
+      { icon: '\u{1F3AC}', label: 'Videos auf der Website', value: wa.hasVideo ? `${wa.videoCount || 1} Video(s) gefunden` : 'Keine Videos gefunden', status: wa.hasVideo ? 'good' : 'bad' },
+      { icon: '\u{1F4F1}', label: 'Social-Media-Präsenz', value: `${wa.socialLinks} Plattformen${socialDetail}`, status: wa.socialLinks > 2 ? 'good' : wa.socialLinks > 0 ? 'warn' : 'bad' },
+      { icon: '\u{1F465}', label: 'Karriere & Recruiting', value: careerDetail, status: wa.hasCareerPage ? 'good' : 'warn' },
+      { icon: '\u{1F50D}', label: 'Google-Sichtbarkeit', value: wa.hasMetaDescription ? 'Gut optimiert' : 'Nicht optimiert', status: wa.hasMetaDescription ? 'good' : 'bad' },
+      { icon: '\u{1F517}', label: 'Teilen-Vorschau', value: wa.hasOgTags ? 'Bild & Text beim Teilen' : 'Kein Vorschaubild beim Teilen', status: wa.hasOgTags ? 'good' : 'bad' },
+      { icon: '\u{2B50}', label: 'Google Rich Results', value: wa.hasStructuredData ? 'Aktiviert' : 'Nicht aktiviert', status: wa.hasStructuredData ? 'good' : 'warn' },
+      { icon: '\u{1F4DD}', label: 'Blog / Aktuelles', value: wa.hasBlog ? 'Vorhanden' : 'Nicht gefunden', status: wa.hasBlog ? 'good' : 'warn' },
+      { icon: '\u{1F512}', label: 'Sichere Verbindung', value: wa.hasSSL ? 'HTTPS aktiv' : 'Nicht sicher (kein HTTPS)', status: wa.hasSSL ? 'good' : 'bad' },
+      { icon: '\u{1F4F2}', label: 'Mobilfreundlich', value: wa.isResponsive ? 'Ja' : 'Nicht optimiert', status: wa.isResponsive ? 'good' : 'bad' },
     ];
 
     const findingsHTML = (wa.findings || []).map(f => `
@@ -862,7 +862,7 @@ function showResults(total, scores, level, result) {
         <div class="analysis-grid">
           ${items.map(i => `
             <div class="analysis-item">
-              <div class="al">${i.label}</div>
+              <div class="al"><span class="al-icon">${i.icon}</span> ${i.label}</div>
               <div class="av ${i.status}">${i.value}</div>
             </div>`).join('')}
         </div>
@@ -876,7 +876,7 @@ function showResults(total, scores, level, result) {
     <div class="problem-card">
       <div class="problem-title">${p.problem}</div>
       <div class="problem-stat">${p.stat}</div>
-      <div class="problem-solution"><strong>Video-Losung:</strong> ${p.solution}</div>
+      <div class="problem-solution"><strong>Video-Lösung:</strong> ${p.solution}</div>
       <div class="problem-scenario"><strong>Konkretes Szenario:</strong> ${p.scenario}</div>
     </div>`).join('');
 
@@ -918,8 +918,8 @@ function showResults(total, scores, level, result) {
     </div>
 
     <div class="industry-section">
-      <h3>Was das fur ${answers.company || 'euch'} bedeutet</h3>
-      <p class="industry-intro">Basierend auf eurem Profil: Diese Herausforderungen losen sich mit Video.</p>
+      <h3>Was das für ${answers.company || 'euch'} bedeutet</h3>
+      <p class="industry-intro">Basierend auf eurem Profil: Diese Herausforderungen lösen sich mit Video.</p>
       ${industryHTML}
     </div>
 
@@ -931,15 +931,19 @@ function showResults(total, scores, level, result) {
     ${websiteHTML}
 
     <div class="steps-section">
-      <h3>Deine nachsten Schritte</h3>
-      <p class="steps-intro">Konkrete Massnahmen, sortiert nach Wirkung:</p>
+      <h3>Deine nächsten Schritte</h3>
+      <p class="steps-intro">Konkrete Maßnahmen, sortiert nach Wirkung:</p>
       ${nextStepsHTML}
     </div>
 
     <div class="cta-card">
-      <h3>Kostenlose Video-Strategie fur ${answers.company || 'euch'}</h3>
-      <p>In 30 Minuten zeigen wir euch, welche Videos den grossten Impact fur euer Business haben — und was das konkret kostet.</p>
-      <a href="${CONFIG.calendarLink}" target="_blank" class="btn-primary" style="text-decoration:none">Kostenloses Gesprach buchen &#x2192;</a>
+      <h3>Kostenlose Video-Strategie für ${answers.company || 'euch'}</h3>
+      <p>In 30 Minuten zeigen wir euch, welche Videos den größten Impact für euer Business haben — und was das konkret kostet.</p>
+      <a href="${CONFIG.calendarLink}" target="_blank" class="btn-primary" style="text-decoration:none">Kostenloses Gespräch buchen &#x2192;</a>
+    </div>
+
+    <div class="download-section">
+      <button class="btn-secondary download-btn" onclick="downloadReport()">&#x1F4E5; Report als PDF herunterladen</button>
     </div>
 
     <div class="footer">
@@ -990,6 +994,14 @@ goNext = function() {
   currentQ++;
   showQuestion(currentQ);
 };
+
+function downloadReport() {
+  // Hide download button during print
+  const downloadSection = document.querySelector('.download-section');
+  if (downloadSection) downloadSection.style.display = 'none';
+  window.print();
+  if (downloadSection) setTimeout(() => { downloadSection.style.display = ''; }, 500);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   currentQ = 0;
