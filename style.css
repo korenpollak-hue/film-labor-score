@@ -550,6 +550,38 @@ body {
 }
 .problem-scenario strong { color: var(--text-primary); }
 
+/* === AI INSIGHTS === */
+.ai-section {
+  background: var(--bg-glass); backdrop-filter: blur(12px);
+  border: 1px solid var(--accent-border); border-radius: var(--radius);
+  padding: 24px; margin-bottom: 24px;
+  position: relative;
+}
+.ai-badge {
+  display: inline-block; padding: 4px 12px;
+  background: var(--accent-subtle); border: 1px solid var(--accent-border);
+  border-radius: 50px; font-size: 0.72rem; font-weight: 600;
+  color: var(--accent); margin-bottom: 12px;
+}
+.ai-section h3 { font-size: 1.05rem; margin-bottom: 6px; }
+.ai-intro { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+
+.ai-grid { display: flex; flex-direction: column; gap: 14px; }
+.ai-card {
+  padding: 16px 18px; background: rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+}
+.ai-card-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.ai-card-icon { font-size: 1rem; }
+.ai-card-type { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.ai-card-metric {
+  margin-left: auto; font-size: 1.1rem; font-weight: 800;
+}
+.ai-card-title { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
+.ai-card-text { font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6; }
+
 /* === CTA === */
 .cta-card {
   text-align: center; padding: 36px 28px;
@@ -594,7 +626,7 @@ body {
   .bg-ambient, .progress-bar, .step-info, .header, .download-section, .cta-card { display: none !important; }
   .results { padding-top: 0 !important; }
   .score-hero, .radar-section, .benchmark-section, .stats-section, .analysis-card,
-  .steps-section, .industry-section {
+  .steps-section, .industry-section, .ai-section {
     background: #fff !important; border: 1px solid #ddd !important;
     backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
     break-inside: avoid; page-break-inside: avoid;
