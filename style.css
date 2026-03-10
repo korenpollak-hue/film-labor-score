@@ -459,7 +459,8 @@ body {
 .analysis-item {
   padding: 14px; background: rgba(0, 0, 0, 0.3); border-radius: 12px;
 }
-.analysis-item .al { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.analysis-item .al { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: flex; align-items: center; gap: 4px; }
+.analysis-item .al .al-icon { font-size: 0.85rem; }
 .analysis-item .av { font-weight: 600; font-size: 0.85rem; }
 .analysis-item .av.good { color: var(--score-high); }
 .analysis-item .av.warn { color: var(--score-mid); }
@@ -559,6 +560,10 @@ body {
 .cta-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
 .cta-card p { color: var(--text-secondary); margin-bottom: 24px; font-size: 0.92rem; line-height: 1.5; }
 
+/* Download */
+.download-section { text-align: center; margin-bottom: 24px; }
+.download-btn { padding: 14px 28px; font-size: 0.9rem; }
+
 /* Footer */
 .footer { text-align: center; padding: 28px 0; border-top: 1px solid var(--border); }
 .footer p { font-size: 0.78rem; color: var(--text-muted); }
@@ -581,4 +586,24 @@ body {
   .radar-container { max-width: 300px; }
   .bench-bar-row { gap: 6px; }
   .results { max-width: 100%; }
+}
+
+/* === PRINT / PDF === */
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  .bg-ambient, .progress-bar, .step-info, .header, .download-section, .cta-card { display: none !important; }
+  .results { padding-top: 0 !important; }
+  .score-hero, .radar-section, .benchmark-section, .stats-section, .analysis-card,
+  .steps-section, .industry-section {
+    background: #fff !important; border: 1px solid #ddd !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .score-value, .q-text, .bench-name, .problem-title, .findings-title,
+  .insight-header h4, h3 { color: #111 !important; }
+  .score-desc, .q-sub, .stat-text, .step-text, .problem-solution,
+  .problem-scenario, .industry-intro, .steps-intro { color: #444 !important; }
+  .analysis-item { background: #f5f5f5 !important; }
+  .footer { border-top-color: #ddd !important; }
+  .footer p, .footer a { color: #666 !important; }
 }
