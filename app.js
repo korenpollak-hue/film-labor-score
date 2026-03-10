@@ -521,14 +521,14 @@ function getLevel(total) {
 
 function renderRadarChart(scores) {
   const cats = [
-    { key: 'strategy', label: 'Strategie', color: '#3a8ff5' },
-    { key: 'content', label: 'Content', color: '#22c55e' },
-    { key: 'production', label: 'Produktion', color: '#f59e0b' },
-    { key: 'distribution', label: 'Distribution', color: '#a78bfa' },
+    { key: 'strategy', label: 'Strategie', sub: 'Planung & Ziele', color: '#3a8ff5' },
+    { key: 'content', label: 'Content', sub: 'Inhalte & Formate', color: '#22c55e' },
+    { key: 'production', label: 'Produktion', sub: 'Umsetzung & Qualität', color: '#f59e0b' },
+    { key: 'distribution', label: 'Distribution', sub: 'Verbreitung & Reichweite', color: '#a78bfa' },
   ];
 
-  // Larger viewBox with padding for labels
-  const pad = 60;
+  // Larger viewBox with padding for labels + subtitles
+  const pad = 75;
   const size = 300 + pad * 2;
   const cx = size / 2, cy = size / 2, maxR = 110;
   const n = cats.length;
@@ -572,13 +572,14 @@ function renderRadarChart(scores) {
   // Labels — positioned further out with enough room
   let labels = '';
   cats.forEach((c, i) => {
-    const labelR = maxR + 32;
+    const labelR = maxR + 36;
     const x = cx + labelR * Math.cos(angles[i]);
     const y = cy + labelR * Math.sin(angles[i]);
     const anchor = Math.abs(Math.cos(angles[i])) < 0.1 ? 'middle' : Math.cos(angles[i]) > 0 ? 'start' : 'end';
     labels += `
-      <text x="${x}" y="${y - 8}" text-anchor="${anchor}" fill="${c.color}" font-size="13" font-weight="700">${c.label}</text>
-      <text x="${x}" y="${y + 9}" text-anchor="${anchor}" fill="rgba(255,255,255,0.5)" font-size="12" font-weight="600">${scores[c.key]}/25</text>`;
+      <text x="${x}" y="${y - 12}" text-anchor="${anchor}" fill="${c.color}" font-size="13" font-weight="700">${c.label}</text>
+      <text x="${x}" y="${y + 3}" text-anchor="${anchor}" fill="rgba(255,255,255,0.35)" font-size="9" font-weight="500">${c.sub}</text>
+      <text x="${x}" y="${y + 17}" text-anchor="${anchor}" fill="rgba(255,255,255,0.5)" font-size="12" font-weight="600">${scores[c.key]}/25</text>`;
   });
 
   return `
@@ -870,6 +871,38 @@ function showResults(total, scores, level, result) {
       </div>`;
   }
 
+  // AI Insights (from Cloudflare Workers AI)
+  let aiInsightsHTML = '';
+  if (wa?.aiInsights && wa.aiInsights.length > 0) {
+    const typeIcons = { chance: '\u{1F4A1}', warnung: '\u{26A0}\u{FE0F}', stärke: '\u{2705}', staerke: '\u{2705}', tipp: '\u{1F4CC}' };
+    const typeColors = { chance: '#3a8ff5', warnung: '#f59e0b', stärke: '#22c55e', staerke: '#22c55e', tipp: '#a78bfa' };
+    const typeLabels = { chance: 'Potenzial', warnung: 'Achtung', stärke: 'Stärke', staerke: 'Stärke', tipp: 'Empfehlung' };
+
+    aiInsightsHTML = `
+      <div class="ai-section">
+        <div class="ai-badge">\u{1F916} KI-Analyse</div>
+        <h3>Personalisierte Insights für ${answers.company || 'euch'}</h3>
+        <p class="ai-intro">Basierend auf der Analyse eurer Website und eurer Antworten.</p>
+        <div class="ai-grid">
+          ${wa.aiInsights.map(ins => {
+            const icon = typeIcons[ins.type] || '\u{1F4A1}';
+            const color = typeColors[ins.type] || '#3a8ff5';
+            const label = typeLabels[ins.type] || 'Insight';
+            return `
+              <div class="ai-card" style="border-left: 3px solid ${color}">
+                <div class="ai-card-header">
+                  <span class="ai-card-icon">${icon}</span>
+                  <span class="ai-card-type" style="color:${color}">${label}</span>
+                  ${ins.metric ? `<span class="ai-card-metric" style="color:${color}">${ins.metric}</span>` : ''}
+                </div>
+                <div class="ai-card-title">${ins.title}</div>
+                <div class="ai-card-text">${ins.text}</div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  }
+
   // Industry insights
   const industryProblems = getIndustryInsights(scores, total);
   const industryHTML = industryProblems.map(p => `
@@ -929,6 +962,8 @@ function showResults(total, scores, level, result) {
     </div>
 
     ${websiteHTML}
+
+    ${aiInsightsHTML}
 
     <div class="steps-section">
       <h3>Deine nächsten Schritte</h3>
