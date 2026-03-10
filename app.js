@@ -53,12 +53,6 @@ const QUESTIONS = [
   },
 
   {
-    type: 'contact',
-    text: 'Fast geschafft — noch ein paar Fragen!',
-    sub: 'Trag dich ein, um deinen persönlichen Report per E-Mail zu erhalten.',
-  },
-
-  {
     type: 'multi', id: 'purposes',
     text: 'Wofür würdet ihr Videos einsetzen?',
     sub: 'Wähle alle passenden aus.',
@@ -114,6 +108,12 @@ const QUESTIONS = [
       { label: 'Noch unklar', value: 'unclear', points: 1, key: 'D' },
     ],
     autoAdvance: true, category: 'production',
+  },
+
+  {
+    type: 'contact',
+    text: 'Dein Report ist fertig!',
+    sub: 'Wohin sollen wir die Ergebnisse schicken?',
   },
 
   { type: 'loading' },
@@ -310,7 +310,7 @@ function renderContact(q) {
     </div>
     <div class="form-grid" style="margin-top:16px">
       <div class="field">
-        <label>Geschäftliche E-Mail <span class="req">*</span></label>
+        <label>E-Mail <span class="req">*</span></label>
         <input type="email" id="email" placeholder="max@unternehmen.de" autocomplete="email">
       </div>
     </div>
@@ -320,49 +320,18 @@ function renderContact(q) {
         <input type="text" id="company" placeholder="Mustermann GmbH" autocomplete="organization">
       </div>
       <div class="field">
-        <label>Website <span class="opt">(für Analyse)</span></label>
+        <label>Website <span class="opt">(optional)</span></label>
         <input type="url" id="website" placeholder="unternehmen.de" autocomplete="url">
       </div>
     </div>
-    <div class="form-grid two-col" style="margin-top:16px">
-      <div class="field">
-        <label>Branche</label>
-        <select id="branche">
-          <option value="">Optional</option>
-          <option>IT & Software</option>
-          <option>Maschinenbau & Industrie</option>
-          <option>Pharma & Chemie</option>
-          <option>Automotive</option>
-          <option>Energie & Umwelt</option>
-          <option>Beratung & Dienstleistung</option>
-          <option>Finanzen & Versicherung</option>
-          <option>Gesundheit & Medizin</option>
-          <option>Handel & E-Commerce</option>
-          <option>Bau & Immobilien</option>
-          <option>Bildung & Forschung</option>
-          <option>Logistik & Transport</option>
-          <option>Medien & Kommunikation</option>
-          <option>Sonstige</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Mitarbeiter</label>
-        <select id="companySize">
-          <option value="">Optional</option>
-          <option>1–10</option>
-          <option>11–50</option>
-          <option>51–200</option>
-          <option>201–1000</option>
-          <option>1000+</option>
-        </select>
-      </div>
-    </div>
+    <input type="hidden" id="branche" value="">
+    <input type="hidden" id="companySize" value="">
     <p class="field-error" id="contactError"></p>
     <div class="btn-row">
-      <button class="btn-secondary" onclick="goBack()">&#x2190; Zurück</button>
-      <button class="btn-primary" onclick="submitContact()">Weiter &#x2192;</button>
+      <button class="btn-secondary" onclick="goBack()">&#x2190; Zur&#x00FC;ck</button>
+      <button class="btn-primary" onclick="submitContact()">Report erhalten &#x2192;</button>
     </div>
-    <p class="privacy">Deine Daten werden vertraulich behandelt und niemals weitergegeben.</p>`;
+    <p class="privacy">Deine Daten sind sicher. Wir geben sie niemals an Dritte weiter. <a href="#" style="color:var(--accent);text-decoration:underline" onclick="event.preventDefault();alert('Deine Daten werden ausschlie\\u00dflich f\\u00fcr die Erstellung deines Reports verwendet und niemals an Dritte weitergegeben. Du kannst jederzeit die L\\u00f6schung deiner Daten per E-Mail an koren@film-labor.de anfordern.')">Datenschutz</a></p>`;
 }
 
 function renderLoading() {
@@ -541,9 +510,9 @@ function calculateScore() {
 
 function getLevel(total) {
   if (total >= 75) return { label: 'Video-Pro', color: '#22c55e', desc: 'Starke Position! Ihr nutzt Video-Marketing bereits effektiv. Zeit, Qualität und Konsistenz auf das nächste Level zu heben.' };
-  if (total >= 55) return { label: 'Video-Fortgeschritten', color: '#3b82f6', desc: 'Solide Grundlage! Ihr wisst, dass Video wichtig ist. Mit einer klaren Strategie könnt ihr deutlich mehr rausholen.' };
+  if (total >= 55) return { label: 'Video-Fortgeschritten', color: '#3a8ff5', desc: 'Solide Grundlage! Ihr wisst, dass Video wichtig ist. Mit einer klaren Strategie könnt ihr deutlich mehr rausholen.' };
   if (total >= 30) return { label: 'Video-Starter', color: '#f59e0b', desc: 'Guter Startpunkt! Ihr habt ungenutztes Potenzial. Die richtigen Schritte machen Video zu eurem Wachstumstreiber.' };
-  return { label: 'Video-Neuling', color: '#f97316', desc: 'Große Chance! Von Anfang an alles richtig machen — das ist ein echter Vorteil gegenüber dem Wettbewerb.' };
+  return { label: 'Video-Neuling', color: '#ef4444', desc: 'Große Chance! Von Anfang an alles richtig machen — das ist ein echter Vorteil gegenüber dem Wettbewerb.' };
 }
 
 // ============================================
@@ -552,17 +521,20 @@ function getLevel(total) {
 
 function renderRadarChart(scores) {
   const cats = [
-    { key: 'strategy', label: 'Strategie', color: '#f97316' },
-    { key: 'content', label: 'Content', color: '#3b82f6' },
-    { key: 'production', label: 'Produktion', color: '#22c55e' },
-    { key: 'distribution', label: 'Distribution', color: '#eab308' },
+    { key: 'strategy', label: 'Strategie', color: '#3a8ff5' },
+    { key: 'content', label: 'Content', color: '#22c55e' },
+    { key: 'production', label: 'Produktion', color: '#f59e0b' },
+    { key: 'distribution', label: 'Distribution', color: '#a78bfa' },
   ];
 
-  const cx = 150, cy = 150, maxR = 110;
+  // Larger viewBox with padding for labels
+  const pad = 60;
+  const size = 300 + pad * 2;
+  const cx = size / 2, cy = size / 2, maxR = 110;
   const n = cats.length;
   const angles = cats.map((_, i) => (Math.PI * 2 * i / n) - Math.PI / 2);
 
-  // Grid lines (rings at 25%, 50%, 75%, 100%)
+  // Grid lines
   let gridLines = '';
   [0.25, 0.5, 0.75, 1].forEach(pct => {
     const r = maxR * pct;
@@ -594,27 +566,27 @@ function renderRadarChart(scores) {
     const r = maxR * (scores[c.key] / 25);
     const x = cx + r * Math.cos(angles[i]);
     const y = cy + r * Math.sin(angles[i]);
-    dots += `<circle cx="${x}" cy="${y}" r="5" fill="${c.color}" stroke="#0a0a0f" stroke-width="2" class="radar-dot"/>`;
+    dots += `<circle cx="${x}" cy="${y}" r="5" fill="${c.color}" stroke="#050508" stroke-width="2" class="radar-dot"/>`;
   });
 
-  // Labels
+  // Labels — positioned further out with enough room
   let labels = '';
   cats.forEach((c, i) => {
-    const labelR = maxR + 28;
+    const labelR = maxR + 32;
     const x = cx + labelR * Math.cos(angles[i]);
     const y = cy + labelR * Math.sin(angles[i]);
     const anchor = Math.abs(Math.cos(angles[i])) < 0.1 ? 'middle' : Math.cos(angles[i]) > 0 ? 'start' : 'end';
     labels += `
-      <text x="${x}" y="${y - 8}" text-anchor="${anchor}" fill="${c.color}" font-size="12" font-weight="700">${c.label}</text>
-      <text x="${x}" y="${y + 8}" text-anchor="${anchor}" fill="rgba(255,255,255,0.5)" font-size="11" font-weight="600">${scores[c.key]}/25</text>`;
+      <text x="${x}" y="${y - 8}" text-anchor="${anchor}" fill="${c.color}" font-size="13" font-weight="700">${c.label}</text>
+      <text x="${x}" y="${y + 9}" text-anchor="${anchor}" fill="rgba(255,255,255,0.5)" font-size="12" font-weight="600">${scores[c.key]}/25</text>`;
   });
 
   return `
-    <svg viewBox="0 0 300 300" class="radar-svg" id="radarChart">
+    <svg viewBox="0 0 ${size} ${size}" class="radar-svg" id="radarChart">
       ${gridLines}
       ${axisLines}
       <polygon points="${avgPoints}" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,4"/>
-      <polygon points="${userPoints}" fill="rgba(249,115,22,0.12)" stroke="url(#scoreGradient)" stroke-width="2.5" class="radar-fill" id="radarFill"/>
+      <polygon points="${userPoints}" fill="rgba(58,143,245,0.12)" stroke="url(#scoreGradient)" stroke-width="2.5" class="radar-fill" id="radarFill"/>
       ${dots}
       ${labels}
     </svg>`;
@@ -668,6 +640,74 @@ function getRelevantStats(scores) {
 
   // Deduplicate and limit to 3
   return [...new Set(stats)].slice(0, 3);
+}
+
+// ============================================
+// INDUSTRY PROBLEMS & VIDEO SOLUTIONS
+// ============================================
+
+function getIndustryInsights(scores, total) {
+  const purposes = answers.purposes || [];
+  const challenges = answers.challenges || [];
+  const channels = answers.channels || [];
+
+  // Common B2B problems that video solves
+  const problems = [];
+
+  if (purposes.includes('Recruiting & Employer Branding') || scores.content < 12) {
+    problems.push({
+      problem: 'Fachkraftemangel & schwache Arbeitgebermarke',
+      stat: '84% der Bewerber sagen, ein Unternehmensvideo hat sie zur Bewerbung uberzeugt (Quelle: CareerBuilder)',
+      solution: 'Employer-Branding-Videos zeigen echte Mitarbeiter, die Kultur und den Arbeitsalltag. Das schafft Vertrauen und zieht qualifizierte Bewerber an.',
+      scenario: 'Ein 90-Sekunden "Day in the Life"-Video eurer besten Mitarbeiter auf LinkedIn generiert 3-5x mehr qualifizierte Bewerbungen als Stellenanzeigen.',
+    });
+  }
+
+  if (challenges.includes('ROI unklar') || scores.strategy < 12) {
+    problems.push({
+      problem: 'Marketingbudget ohne messbare Ergebnisse',
+      stat: '87% der Video-Marketer berichten von positivem ROI. Video-Leads konvertieren 4x haufiger (Quelle: Wyzowl 2025)',
+      solution: 'Video-Marketing ist messbar: Views, Watch-Time, Click-Through-Rate, Conversion. Jeder Euro lasst sich nachverfolgen.',
+      scenario: 'Ein Erklar-Video auf eurer Landing Page kann die Conversion-Rate um 80% steigern. Bei 1.000 Besuchern/Monat bedeutet das Dutzende zusatzliche Leads.',
+    });
+  }
+
+  if (scores.distribution < 10 || channels.includes('Nirgendwo')) {
+    problems.push({
+      problem: 'Geringe Online-Sichtbarkeit trotz gutem Produkt',
+      stat: 'Video-Content wird 12x haufiger geteilt als Text und Bilder zusammen. LinkedIn-Videos erhalten 5x mehr Engagement (Quelle: HubSpot)',
+      solution: 'Ein einziger gut produzierter Video-Content kann auf 5+ Kanalen ausgespielt werden: Website, LinkedIn, YouTube, Instagram, E-Mail.',
+      scenario: 'Ein monatliches 60-Sekunden Experten-Video auf LinkedIn baut innerhalb von 6 Monaten eine Reichweite von 10.000+ Impressionen pro Post auf.',
+    });
+  }
+
+  if (purposes.includes('Produktvideos') || purposes.includes('Imagefilm')) {
+    problems.push({
+      problem: 'Komplexe Produkte sind schwer zu erklaren',
+      stat: '96% der Menschen haben sich ein Erklarvideo angesehen, um mehr uber ein Produkt zu erfahren (Quelle: Wyzowl)',
+      solution: 'Produktvideos reduzieren die Erklarzeit um 80% und beantworten Kundenfragen, bevor sie gestellt werden.',
+      scenario: 'Ein 2-Minuten Produktvideo ersetzt 10 Seiten Broschure und wird von 73% der B2B-Einkaufer vor der Kaufentscheidung angeschaut.',
+    });
+  }
+
+  if (challenges.includes('Zu teuer') || challenges.includes('Keine Zeit')) {
+    problems.push({
+      problem: 'Video-Produktion wirkt zu aufwandig und teuer',
+      stat: 'Ein gebundelter Drehtag fur 3-5 Videos spart 40% gegenuber Einzelbuchungen. Ein professionelles Video halt 2-3 Jahre.',
+      solution: 'Batch-Produktion macht Video bezahlbar: An einem Tag dreht man Content fur Monate. Der ROI ubersteigt die Investition bereits beim ersten Neukunden.',
+      scenario: 'Investition: Ein Drehtag fur 3 Videos. Ergebnis: 3-5 Jahre nutzbarer Content, messbar mehr Anfragen, starkere Arbeitgebermarke.',
+    });
+  }
+
+  // Always include this general one
+  problems.push({
+    problem: 'Wettbewerber investieren bereits in Video',
+    stat: '91% der Unternehmen nutzen Video als Marketing-Tool — Tendenz steigend. 68% der Nicht-Nutzer planen den Einstieg (Quelle: Wyzowl 2025)',
+    solution: 'Wer jetzt nicht in Video investiert, verliert Marktanteile an Wettbewerber, die es bereits tun.',
+    scenario: 'Unternehmen mit Video-Strategie generieren 66% mehr qualifizierte Leads pro Jahr und haben 54% hohere Brand Awareness.',
+  });
+
+  return problems.slice(0, 3);
 }
 
 // ============================================
@@ -725,7 +765,7 @@ function showResults(total, scores, level, result) {
   const emailSent = result?.emailSent === true;
   const insights = getExpertInsights(scores, total);
   const stats = getRelevantStats(scores);
-  const catColors = { strategy: '#f97316', content: '#3b82f6', production: '#22c55e', distribution: '#eab308' };
+  const catColors = { strategy: '#3a8ff5', content: '#22c55e', production: '#f59e0b', distribution: '#a78bfa' };
 
   // Radar chart
   const radarChart = renderRadarChart(scores);
@@ -830,12 +870,28 @@ function showResults(total, scores, level, result) {
       </div>`;
   }
 
+  // Industry insights
+  const industryProblems = getIndustryInsights(scores, total);
+  const industryHTML = industryProblems.map(p => `
+    <div class="problem-card">
+      <div class="problem-title">${p.problem}</div>
+      <div class="problem-stat">${p.stat}</div>
+      <div class="problem-solution"><strong>Video-Losung:</strong> ${p.solution}</div>
+      <div class="problem-scenario"><strong>Konkretes Szenario:</strong> ${p.scenario}</div>
+    </div>`).join('');
+
   container.innerHTML = `<div class="results">
-    ${emailSent ? `<div class="email-banner">&#x2709;&#xFE0F; Report an <strong>${answers.email}</strong> gesendet!</div>` : ''}
+    ${emailSent ? `<div class="email-banner">Report an <strong>${answers.email}</strong> gesendet</div>` : ''}
 
     <div class="score-hero">
       <div class="score-ring">
         <svg viewBox="0 0 170 170">
+          <defs>
+            <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#3a8ff5"/>
+              <stop offset="100%" stop-color="#1a6fd5"/>
+            </linearGradient>
+          </defs>
           <circle class="track" cx="85" cy="85" r="72" />
           <circle class="fill" id="scoreFill" cx="85" cy="85" r="72" />
         </svg>
@@ -856,28 +912,34 @@ function showResults(total, scores, level, result) {
       </div>
     </div>
 
-    <div class="stats-section">
-      <h3>&#x1F4CA; Wusstest du?</h3>
-      ${statsHTML}
-    </div>
-
     <div class="benchmark-section">
       <h3>Dein Score vs. Branchendurchschnitt</h3>
       ${benchmarkHTML}
     </div>
 
+    <div class="industry-section">
+      <h3>Was das fur ${answers.company || 'euch'} bedeutet</h3>
+      <p class="industry-intro">Basierend auf eurem Profil: Diese Herausforderungen losen sich mit Video.</p>
+      ${industryHTML}
+    </div>
+
+    <div class="stats-section">
+      <h3>Zahlen &amp; Fakten</h3>
+      ${statsHTML}
+    </div>
+
     ${websiteHTML}
 
     <div class="steps-section">
-      <h3>&#x1F680; Deine nächsten Schritte</h3>
-      <p class="steps-intro">Basierend auf deinem Profil empfehlen wir diese konkreten Maßnahmen:</p>
+      <h3>Deine nachsten Schritte</h3>
+      <p class="steps-intro">Konkrete Massnahmen, sortiert nach Wirkung:</p>
       ${nextStepsHTML}
     </div>
 
     <div class="cta-card">
-      <h3>Bereit für professionelles Video-Marketing?</h3>
-      <p>30 Minuten, kostenlos, unverbindlich — wir zeigen euch, wie ihr mit Video mehr Kunden und Talente gewinnt.</p>
-      <a href="${CONFIG.calendarLink}" target="_blank" class="btn-primary" style="text-decoration:none">Kostenloses Gespräch buchen &#x2192;</a>
+      <h3>Kostenlose Video-Strategie fur ${answers.company || 'euch'}</h3>
+      <p>In 30 Minuten zeigen wir euch, welche Videos den grossten Impact fur euer Business haben — und was das konkret kostet.</p>
+      <a href="${CONFIG.calendarLink}" target="_blank" class="btn-primary" style="text-decoration:none">Kostenloses Gesprach buchen &#x2192;</a>
     </div>
 
     <div class="footer">
