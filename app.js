@@ -484,24 +484,25 @@ document.addEventListener('keydown', (e) => {
 function calculateScore() {
   const s = { strategy: 0, content: 0, production: 0, distribution: 0 };
 
-  s.strategy += (answers.videoUsage?.points || 1) * 2.5;
-  s.strategy += (answers.importance || 1) * 2;
-  s.strategy += Math.min((answers.purposes?.length || 0) * 1.5, 7);
+  // Strategy: Actual usage matters most, intent less
+  s.strategy += (answers.videoUsage?.points || 1) * 3;       // max 12 — actual usage is key
+  s.strategy += Math.min((answers.purposes?.length || 0), 5); // max 5 — slight bonus for knowing what they want
   s.strategy = Math.min(Math.round(s.strategy), 25);
 
-  s.content += Math.min((answers.purposes?.length || 0) * 2.5, 12);
-  s.content += Math.min((answers.challenges?.length || 0) * 1.5, 8);
-  s.content += (answers.importance || 1);
-  s.content = Math.min(Math.round(s.content), 25);
+  // Content: Challenges REDUCE score (more problems = worse), usage helps
+  const challengeCount = (answers.challenges?.length || 0);
+  s.content += (answers.videoUsage?.points || 1) * 3;         // max 12 — existing usage
+  s.content += Math.max(0, 8 - challengeCount * 2);           // max 8, MINUS for each challenge
+  s.content = Math.max(0, Math.min(Math.round(s.content), 25));
 
-  s.production += (answers.videoProduction?.points || 1) * 2.5;
-  s.production += (answers.budget?.points || 1) * 2.5;
-  s.production += (answers.timeline?.points || 1) * 1.25;
+  // Production: How they produce + budget
+  s.production += (answers.videoProduction?.points || 1) * 3;  // max 12
+  s.production += (answers.budget?.points || 1) * 2;           // max 8
   s.production = Math.min(Math.round(s.production), 25);
 
+  // Distribution: Only real channels count, "Nirgendwo" = 0
   const chs = (answers.channels || []).filter(c => c !== 'Nirgendwo').length;
-  s.distribution += Math.min(chs * 3, 15);
-  s.distribution += (answers.importance || 1) * 2;
+  s.distribution += Math.min(chs * 3, 18);                    // max 18
   s.distribution = Math.min(Math.round(s.distribution), 25);
 
   const total = s.strategy + s.content + s.production + s.distribution;
@@ -510,9 +511,9 @@ function calculateScore() {
 
 function getLevel(total) {
   if (total >= 75) return { label: 'Video-Pro', color: '#22c55e', desc: 'Starke Position! Ihr nutzt Video-Marketing bereits effektiv. Zeit, Qualität und Konsistenz auf das nächste Level zu heben.' };
-  if (total >= 55) return { label: 'Video-Fortgeschritten', color: '#3a8ff5', desc: 'Solide Grundlage! Ihr wisst, dass Video wichtig ist. Mit einer klaren Strategie könnt ihr deutlich mehr rausholen.' };
+  if (total >= 50) return { label: 'Video-Fortgeschritten', color: '#3a8ff5', desc: 'Solide Grundlage! Ihr wisst, dass Video wichtig ist. Mit einer klaren Strategie könnt ihr deutlich mehr rausholen.' };
   if (total >= 30) return { label: 'Video-Starter', color: '#f59e0b', desc: 'Guter Startpunkt! Ihr habt ungenutztes Potenzial. Die richtigen Schritte machen Video zu eurem Wachstumstreiber.' };
-  return { label: 'Video-Neuling', color: '#ef4444', desc: 'Große Chance! Von Anfang an alles richtig machen — das ist ein echter Vorteil gegenüber dem Wettbewerb.' };
+  return { label: 'Video-Neuling', color: '#ef4444', desc: 'Großes ungenutztes Potenzial! Die meisten eurer Wettbewerber sind hier auch nicht weiter — wer jetzt startet, gewinnt.' };
 }
 
 // ============================================
