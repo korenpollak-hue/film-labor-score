@@ -137,7 +137,7 @@ const EXPERT_DATA = {
   benchmarks: {
     strategy: { avg: 12, top: 22, label: 'Strategie' },
     content: { avg: 10, top: 21, label: 'Content' },
-    production: { avg: 11, top: 23, label: 'Produktion' },
+    production: { avg: 11, top: 23, label: 'Umsetzung' },
     distribution: { avg: 9, top: 20, label: 'Distribution' },
   },
   nextSteps: {
@@ -523,7 +523,7 @@ function renderRadarChart(scores) {
   const cats = [
     { key: 'strategy', label: 'Strategie', sub: 'Planung & Ziele', color: '#3a8ff5' },
     { key: 'content', label: 'Content', sub: 'Inhalte & Formate', color: '#22c55e' },
-    { key: 'production', label: 'Produktion', sub: 'Umsetzung & Qualität', color: '#f59e0b' },
+    { key: 'production', label: 'Umsetzung', sub: 'Qualität & Regelmäßigkeit', color: '#f59e0b' },
     { key: 'distribution', label: 'Distribution', sub: 'Verbreitung & Reichweite', color: '#a78bfa' },
   ];
 
@@ -600,7 +600,7 @@ function renderRadarChart(scores) {
 function getExpertInsights(scores, total) {
   const insights = [];
   const cats = ['strategy', 'content', 'production', 'distribution'];
-  const catNames = { strategy: 'Strategie', content: 'Content', production: 'Produktion', distribution: 'Distribution' };
+  const catNames = { strategy: 'Strategie', content: 'Content', production: 'Umsetzung', distribution: 'Distribution' };
 
   cats.forEach(cat => {
     const score = scores[cat];
